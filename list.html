@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <title>To-Do-List</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </head>
+    <body>
+       <h1 style="text-align:center">To-Do List</h1>
+       <div style="text-align:center">
+       <input type="date" id="txt2" width="500px" />
+        <input type="textbox" id="txt1" placeholder="Description" width="500px">
+        <button  onclick="addList('ToDoListTable')" >
+          <span class="glyphicon glyphicon-plus-sign"></span></button>
+        <button  onclick="deleteList('ToDoListTable')" >
+          <span class="glyphicon glyphicon-remove-circle"></span></button>        
+        </div>
+        <table id="ToDoListTable" width="350px" border="1" > 
+        </table>
+        <script>
+            function addList(myTable) {
+
+            table = document.getElementById(myTable);
+
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+
+            var b=document.getElementById('txt2').value;
+            var cell1 = row.insertCell(0);
+            var element1 = document.createElement("input");
+            element1.type = "date";
+            element1.style.width="100%";
+            element1.name = "txtbox[]";
+            element1.value=b;
+            cell1.appendChild(element1);
+
+            var a=document.getElementById('txt1').value;
+            var cell2 = row.insertCell(1);
+            var element2 = document.createElement("input");
+            element2.type = "text";
+            element2.style.width="100%";
+            element2.name = "txtbox[]";
+            element2.value=a;
+            cell2.appendChild(element2);
+
+            var cell3 = row.insertCell(2);
+            var element3 = document.createElement("input");
+            element3.type = "checkbox";
+            element3.name="chkbox[]";
+            cell3.appendChild(element3);
+            document.getElementById('txt2').value=" ";
+            document.getElementById('txt1').value=" ";
+            document.getElementById('pTotal').innerHTML= rowCount + 1;
+            }
+
+            function deleteList(myTable) {
+
+             var table = document.getElementById(myTable);
+             var rowCount = table.rows.length;
+
+             for(var i=0; i<rowCount; i++) {
+             var row = table.rows[i];
+             var chkbox = row.cells[2].childNodes[0];
+               if(null != chkbox && true == chkbox.checked) {
+               table.deleteRow(i);
+               rowCount--;
+               i--;
+
+               document.getElementById('pTotal').innerHTML= rowCount;
+
+                }
+             }
+           }
+        </script>
+        <style>
+            #ToDoListTable{
+                  margin-left: auto;
+                  margin-right: auto;
+                  width: 500px;
+                  background-color: blue;
+            }
+            span{
+                font-size: 17px;
+            }
+        </style>
+    </body>
